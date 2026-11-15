@@ -52,7 +52,10 @@ impl Supervisor {
             return Err(String::from("Component is administratively disabled"));
         }
         self.state.initialized = true;
-        Ok(format!("{} initialized successfully at tier {}", self.config.component_name, self.config.tier))
+        Ok(format!(
+            "{} initialized successfully at tier {}",
+            self.config.component_name, self.config.tier
+        ))
     }
 
     /// Query current health
@@ -89,8 +92,14 @@ mod tests {
         let result = supervisor.initialize();
 
         // Assert
-        assert!(result.is_ok(), "initialization should succeed with valid config");
-        assert!(supervisor.is_healthy(), "component should report healthy state after init");
+        assert!(
+            result.is_ok(),
+            "initialization should succeed with valid config"
+        );
+        assert!(
+            supervisor.is_healthy(),
+            "component should report healthy state after init"
+        );
     }
 
     #[test]
@@ -107,7 +116,13 @@ mod tests {
         let result = supervisor.initialize();
 
         // Assert
-        assert!(result.is_err(), "disabled component should reject initialization");
-        assert!(!supervisor.is_healthy(), "disabled component must not be marked healthy");
+        assert!(
+            result.is_err(),
+            "disabled component should reject initialization"
+        );
+        assert!(
+            !supervisor.is_healthy(),
+            "disabled component must not be marked healthy"
+        );
     }
 }
